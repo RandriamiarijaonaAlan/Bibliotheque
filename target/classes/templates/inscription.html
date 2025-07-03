@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h1>Créer un compte</h1>
+
+<!-- Affichage d'un message d’erreur -->
+<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+<form th:action="@{/inscription}" th:object="${profil}" method="post">
+    <div>
+        <label>Nom</label>
+        <input type="text" th:field="*{nom}" placeholder="Nom">
+    </div>
+
+    <div>
+        <label>Prénom</label>
+        <!-- Prenom n’est PAS dans l’entité Profil ; on le passe en request param -->
+        <input type="text" name="prenom" th:value="${prenom}">
+    </div>
+
+    <div>
+        <label>Email</label>
+        <input type="email" th:field="*{email}">
+    </div>
+
+    <div>
+        <label>Mot de passe</label>
+        <input type="password" th:field="*{motDePasse}">
+    </div>
+<div>
+    <label for="typeAdherent">Type d’adhérent</label>
+    <select name="idTypeAdherent" id="typeAdherent" required>
+        <option value="">-- Sélectionnez --</option>
+        <option th:each="type : ${typesAdherents}"
+                th:value="${type.idTypeAdherent}"
+                th:text="${type.nom}">
+        </option>
+    </select>
+</div>
+
+    <button type="submit">S’inscrire</button>
+</form>
+
+</body>
+</html>
