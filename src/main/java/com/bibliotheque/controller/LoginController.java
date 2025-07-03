@@ -10,16 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-public class LoginController {
+public class LoginController  {
 
     @Autowired
     private ProfilRepository profilRepository;
 
+    // Affiche le formulaire de login
     @GetMapping("/login")
     public String showLoginForm() {
-        return "login";  // nom du template Thymeleaf (login.html)
+        return "login";  // rend le template login.html
     }
 
+    // Traite le formulaire de login
     @PostMapping("/login")
     public String login(
             @RequestParam("email") String email,
@@ -31,15 +33,16 @@ public class LoginController {
         if (optionalProfil.isPresent()) {
             Profil profil = optionalProfil.get();
 
-            // Simple comparaison mot de passe en clair (à remplacer par un hash dans prod)
+            // Vérification simple mot de passe (en clair, à sécuriser en prod)
             if (profil.getMotDePasse().equals(motDePasse)) {
-                // Login OK
-                // Ici tu peux enregistrer l'utilisateur en session etc.
-                return "redirect:/";  // redirection vers la page d’accueil
+                // Connexion OK
+                // TODO : enregistrer en session si besoin
+
+                return "redirect:/accueil";  // redirection vers la page d'accueil
             }
         }
 
-        // En cas d’erreur
+        // En cas d'erreur, on renvoie au formulaire avec message
         model.addAttribute("error", "Email ou mot de passe incorrect");
         return "login";
     }

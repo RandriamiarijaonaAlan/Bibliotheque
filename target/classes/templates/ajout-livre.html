@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ajout Livre + Exemplaire</title>
+</head>
+<body>
+<h2>Ajouter un Livre avec un Exemplaire</h2>
+<form method="post" th:action="@{/livres/ajouter}">
+    <label>Titre:</label> <input type="text" name="titre" required><br>
+    <label>Auteur:</label> <input type="text" name="auteur"><br>
+    <label>ISBN:</label> <input type="text" name="isbn"><br>
+    <label>Langue:</label> <input type="text" name="langue"><br>
+    <label>Résumé:</label> <textarea name="resume"></textarea><br>
+    <label>Mots Clés:</label> <textarea name="motsCles"></textarea><br>
+    <label>Classification:</label> <input type="text" name="classification"><br>
+    <hr>
+    <label>Code-barre exemplaire:</label> <input type="text" name="codeBarre" required><br>
+    <label>Localisation:</label> <input type="text" name="localisation"><br>
+    <label>État:</label>
+    <select name="etat">
+        <option value="disponible">Disponible</option>
+        <option value="en_pret">En prêt</option>
+        <option value="lecture_sur_place">Lecture sur place</option>
+    </select><br>
+    <button type="submit">Ajouter</button>
+</form>
+<p th:if="${param.success}">📚 Livre et exemplaire ajoutés avec succès !</p>
+</body>
+</html>
