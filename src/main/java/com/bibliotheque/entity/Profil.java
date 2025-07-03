@@ -2,6 +2,7 @@ package com.bibliotheque.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "profil")
@@ -22,6 +23,8 @@ public class Profil {
 
     @Column(name = "date_de_naisaance")
     private LocalDate dateDeNaisaance;
+@OneToMany(mappedBy = "profil")
+private List<Adherent> adherents;
 
     public Profil() {}
 

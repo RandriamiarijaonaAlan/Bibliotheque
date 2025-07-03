@@ -34,6 +34,18 @@ public class Adherent {
 
     @Column(name = "date_inscription")
     private java.time.LocalDate dateInscription;
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "id_profil", insertable = false, updatable = false)
+private Profil profil;
+
+// + ajout des getter/setter
+public Profil getProfil() {
+    return profil;
+}
+
+public void setProfil(Profil profil) {
+    this.profil = profil;
+}
 
     // Getters et setters
 
