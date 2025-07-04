@@ -1,0 +1,17 @@
+<form th:action="@{/reservations}" method="post">
+    <label>Adhérent :</label>
+    <select name="idAdherent">
+        <option th:each="a : ${adherents}" 
+                th:value="${a.idAdherent}" 
+                th:text="${a.profil.nom}"></option>
+    </select>
+
+    <label>Exemplaire :</label>
+    <select name="idExemplaire">
+        <option th:each="e : ${exemplaires}" 
+                th:value="${e.idExemplaire}" 
+                th:text="${e.livre.titre}"></option>
+    </select>
+
+    <button type="submit">Réserver</button>
+</form>
