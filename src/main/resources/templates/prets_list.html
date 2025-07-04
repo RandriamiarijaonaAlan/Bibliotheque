@@ -1,0 +1,23 @@
+<table>
+    <thead>
+        <tr>
+            <th>ID Pret</th>
+            <th>Exemplaire</th>
+            <th>Adhérent</th>
+            <th>Date Emprunt</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="pret : ${prets}">
+            <td th:text="${pret.idPret}"></td>
+            <td th:text="${pret.exemplaire.codeBarre}"></td>
+            <td th:text="${pret.adherent.profil.nom}"></td>
+            <td th:text="${pret.datePret}"></td>
+            <td>
+               <a th:href="@{/prets/rendre/{id}(id=${pret.exemplaire.idExemplaire})}">Rendre</a>
+
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -120,4 +120,5 @@ public void setProfil(Profil profil) {
     public void setDateInscription(java.time.LocalDate dateInscription) {
         this.dateInscription = dateInscription;
     }
+    
 }

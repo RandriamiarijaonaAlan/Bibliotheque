@@ -20,7 +20,8 @@
         <select id="idAdherent" name="idAdherent" required>
             <option th:each="a : ${adherents}" 
         th:value="${a.idAdherent}" 
-        th:text="|Adhérent ${a.idAdherent}|">Adhérent</option>
+        th:text="${a.profil.nom}">Adhérent</option>
+
 
         </select>
         <br/>

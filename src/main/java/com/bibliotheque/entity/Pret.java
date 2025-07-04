@@ -20,6 +20,9 @@ public class Pret {
     @JoinColumn(name = "id_adherent", nullable = false)
     private Adherent adherent;
 
+    @Column(name = "date_retour")
+    private LocalDate dateRetour;
+
     @Column(name = "date_pret")
     private LocalDate datePret;
 
@@ -99,6 +102,11 @@ public class Pret {
         this.prolongements = prolongements;
     }
 
+    public void setDateRetour(LocalDate dateRetour) {
+        this.dateRetour = dateRetour;
+    }
+
     // Getters & Setters
+ 
     // ...
 }

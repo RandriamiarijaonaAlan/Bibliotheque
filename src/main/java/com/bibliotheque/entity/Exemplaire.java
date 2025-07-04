@@ -10,6 +10,7 @@ public class Exemplaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idExemplaire;
 
+
     @ManyToOne
     @JoinColumn(name = "id_livre")
     private Livre livre;

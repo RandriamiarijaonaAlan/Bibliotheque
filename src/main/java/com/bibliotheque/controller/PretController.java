@@ -3,6 +3,7 @@ package com.bibliotheque.controller;
 import com.bibliotheque.entity.*;
 import com.bibliotheque.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -68,4 +69,36 @@ public class PretController {
 
         return "redirect:/prets/new?success";   // retour au formulaire avec succès
     }
+   // Rendre un livre (exemplaire) par id avec GET
+    @GetMapping("/rendre/{idExemplaire}")
+    public String rendreLivre(@PathVariable Integer idExemplaire) {
+        // Récupérer l'exemplaire
+        Exemplaire exemplaire = exemplaireRepository.findById(idExemplaire)
+                .orElseThrow(() -> new IllegalArgumentException("Exemplaire introuvable"));
+
+        // Chercher le prêt actif (sans date de retour)
+        Optional<Pret> pretOpt = pretRepository.findByExemplaireAndDateRetourIsNull(exemplaire);
+
+        if (pretOpt.isPresent()) {
+            Pret pret = pretOpt.get();
+            // Mettre la date de retour à aujourd'hui
+            pret.setDateRetour(LocalDate.now());
+            pretRepository.save(pret);
+
+            // Mettre à jour l'état de l'exemplaire en "disponible"
+            exemplaire.setEtat("disponible");
+            exemplaireRepository.save(exemplaire);
+        }
+
+        // Rediriger vers la liste des prêts avec succès
+        return "redirect:/prets?return=success";
+    }
+@GetMapping("")
+public String listePretsActifs(Model model) {
+    List<Pret> pretsActifs = pretRepository.findByDateRetourIsNull();
+    model.addAttribute("prets", pretsActifs);
+    return "prets_list";  // nom de la vue Thymeleaf
+}
+
+
 }

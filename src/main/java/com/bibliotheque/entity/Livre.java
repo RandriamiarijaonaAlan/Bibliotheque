@@ -1,6 +1,7 @@
 package com.bibliotheque.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "livre")
@@ -15,6 +16,9 @@ public class Livre {
     private String isbn;
     private String langue;
     
+    @OneToMany(mappedBy = "livre")
+    private List<Exemplaire> exemplaires;
+
     @Column(columnDefinition = "TEXT")
     private String resume;
 
