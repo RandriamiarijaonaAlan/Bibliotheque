@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nouvel abonnement</title>
+</head>
+<body>
+<h1>Demande d'abonnement</h1>
+
+<form th:action="@{/abonnement/demande}" method="post">
+    <label>Date de début :</label>
+    <input type="date" name="dateDebut" required/><br><br>
+
+    <label>Date de fin :</label>
+    <input type="date" name="dateFin" required/><br><br>
+
+    <button type="submit">Envoyer pour validation</button>
+</form>
+
+<a href="/">Retour</a>
+</body>
+</html>

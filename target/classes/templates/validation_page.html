@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Page de validation</title>
+    <style>
+        table, th, td { border: 1px solid black; border-collapse: collapse; padding: 5px;}
+    </style>
+</head>
+<body>
+
+<h1>Page de validation</h1>
+
+<form method="get" th:action="@{/admin/validation}">
+    <input type="text" name="search" placeholder="Rechercher livre ou adhérent" th:value="${search}"/>
+    <button type="submit">Rechercher</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nom Adhérent</th>
+            <th>Titre Livre</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Statut</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="activity : ${activities}">
+            <td th:text="${activity.nomAdherent}">Nom</td>
+            <td th:text="${activity.titreLivre}">Titre</td>
+            <td th:text="${activity.date}">Date</td>
+            <td th:text="${activity.type}">Type</td>
+            <td th:text="${activity.statut}">Statut</td>
+            <td>
+                <form th:if="${activity.statut == 'en_attente' or activity.statut == 'en_attente' or activity.statut == 'non payée'}"
+                      th:switch="${activity.type}" method="post"
+                      th:action="@{
+                          ${activity.type == 'Reservation'} ? '/admin/validation/reservation/' + ${activity.id} :
+                          ${activity.type == 'Prêt'} ? '/admin/validation/pret/' + ${activity.id} :
+                          ${activity.type == 'Prolongement'} ? '/admin/validation/prolongement/' + ${activity.id} :
+                          ${activity.type == 'Abonnement'} ? '/admin/validation/abonnement/' + ${activity.id} :
+                          '#'
+                      }">
+                    <button type="submit">Valider</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<a href="/">Retour à l'accueil</a>
+
+</body>
+</html>
