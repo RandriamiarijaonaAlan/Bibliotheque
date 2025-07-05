@@ -6,79 +6,47 @@ import jakarta.persistence.*;
 @Table(name = "adherent")
 public class Adherent {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_adherent")
-    private Integer idAdherent;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idAdherent;
 
-    @Column(name = "id_profil", nullable = false, unique = true)
-    private Integer profilId;
+    /** Relation 1‑N : un type pour plusieurs adhérents */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_type_adherent")
+    private TypeAdherent typeAdherent;
 
-    @Column(name = "id_type_adherent")
-    private Integer typeAdherentId;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_profil", nullable = false)
+    private Profil profil;
 
-    @Column(name = "statut")
-    private String statut;
+    private Integer quotaReservation = 2;
+    private Integer dureePretJours    = 14;
+    private Integer prolongementMax   = 2;
+    private Integer dureeProlongementJours = 7;
 
-    @Column(name = "quota_reservation")
-    private Integer quotaReservation;
+    private String statut = "inactif";  // actif | inactif | blackliste
 
-    @Column(name = "duree_pret_jours")
-    private Integer dureePretJours;
-
-    @Column(name = "prolongement_max")
-    private Integer prolongementMax;
-
-    @Column(name = "duree_prolongement_jours")
-    private Integer dureeProlongementJours;
-
-    @Column(name = "date_inscription")
-    private java.time.LocalDate dateInscription;
-@ManyToOne(fetch = FetchType.LAZY)
-@JoinColumn(name = "id_profil", insertable = false, updatable = false)
-private Profil profil;
-
-// + ajout des getter/setter
-public Profil getProfil() {
-    return profil;
-}
-
-public void setProfil(Profil profil) {
-    this.profil = profil;
-}
-
-    // Getters et setters
-
-    public Integer getIdAdherent() {
+    public Long getIdAdherent() {
         return idAdherent;
     }
 
-    public void setIdAdherent(Integer idAdherent) {
+    public void setIdAdherent(Long idAdherent) {
         this.idAdherent = idAdherent;
     }
 
-    public Integer getProfilId() {
-        return profilId;
+    public TypeAdherent getTypeAdherent() {
+        return typeAdherent;
     }
 
-    public void setProfilId(Integer profilId) {
-        this.profilId = profilId;
+    public void setTypeAdherent(TypeAdherent typeAdherent) {
+        this.typeAdherent = typeAdherent;
     }
 
-    public Integer getTypeAdherentId() {
-        return typeAdherentId;
+    public Profil getProfil() {
+        return profil;
     }
 
-    public void setTypeAdherentId(Integer typeAdherentId) {
-        this.typeAdherentId = typeAdherentId;
-    }
-
-    public String getStatut() {
-        return statut;
-    }
-
-    public void setStatut(String statut) {
-        this.statut = statut;
+    public void setProfil(Profil profil) {
+        this.profil = profil;
     }
 
     public Integer getQuotaReservation() {
@@ -113,12 +81,14 @@ public void setProfil(Profil profil) {
         this.dureeProlongementJours = dureeProlongementJours;
     }
 
-    public java.time.LocalDate getDateInscription() {
-        return dateInscription;
+    public String getStatut() {
+        return statut;
     }
 
-    public void setDateInscription(java.time.LocalDate dateInscription) {
-        this.dateInscription = dateInscription;
+    public void setStatut(String statut) {
+        this.statut = statut;
     }
+
+    /* getters & setters */
     
 }

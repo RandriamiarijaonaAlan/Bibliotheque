@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Inscription réussie</title>
+</head>
+<body>
+<h2>Inscription réussie !</h2>
+
+<p th:if="${codeAdmin}">Votre code bibliothécaire est : <strong th:text="${codeAdmin}"></strong></p>
+<a th:href="@{/login}">Aller à la page de connexion</a>
+</body>
+</html>

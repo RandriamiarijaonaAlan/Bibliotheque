@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Connexion</title>
+    <title>Connexion utilisateur</title>
 </head>
 <body>
-    <h2>Connexion</h2>
-    <form th:action="@{/login}" method="post">
-        <label>Email :</label>
-        <input type="email" name="email" required /><br/>
+<h2>Connexion</h2>
 
-        <label>Mot de passe :</label>
-        <input type="password" name="motDePasse" required /><br/>
+<form th:action="@{/login}" method="post" th:object="${loginDTO}">
+    <label>Email:
+        <input type="email" th:field="*{email}" required />
+    </label><br/>
+    <label>Mot de passe:
+        <input type="password" th:field="*{motDePasse}" required />
+    </label><br/>
 
-        <button type="submit">Se connecter</button>
-    </form>
+    <button type="submit">Se connecter</button>
+</form>
 
-    <div th:if="${error}" style="color:red;">
-        <p th:text="${error}"></p>
-    </div>
+<div th:if="${errorMessage}" style="color: red;">
+    <p th:text="${errorMessage}"></p>
+</div>
+
 </body>
 </html>
