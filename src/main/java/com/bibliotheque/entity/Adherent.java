@@ -88,6 +88,14 @@ public class Adherent {
     public void setStatut(String statut) {
         this.statut = statut;
     }
+    public boolean isValide() {
+    return "actif".equalsIgnoreCase(this.statut);
+}
+
+    public boolean isAbonne() {
+    // Par exemple, considère qu’un adhérent est abonné s’il a un type d’adhérent valide
+    return this.typeAdherent != null && this.typeAdherent.isAbonne(); // Ou adapte selon ta logique
+}
 
     /* getters & setters */
     

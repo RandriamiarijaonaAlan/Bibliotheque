@@ -9,30 +9,30 @@ public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_reservation")
     private Long idReservation;
 
     @ManyToOne
-    @JoinColumn(name = "id_exemplaire", nullable = false)
+    @JoinColumn(name = "id_exemplaire")
     private Exemplaire exemplaire;
 
     @ManyToOne
-    @JoinColumn(name = "id_adherent", nullable = false)
+    @JoinColumn(name = "id_adherent")
     private Adherent adherent;
 
     @Column(name = "date_reservation")
     private LocalDate dateReservation;
 
-    @Column(nullable = false)
-    private String statut;  // en_attente, reservee, terminee, expiree
+    @Column(name = "date_debut_reservation")
+    private LocalDate dateDebutReservation;
 
-    // Constructeurs
-    public Reservation() {
-        this.dateReservation = LocalDate.now();
-        this.statut = "en_attente";
-    }
+    @Column(name = "date_fin_reservation")
+    private LocalDate dateFinReservation;
+
+    @Column(length = 20)
+    private String statut;
 
     // Getters et setters
+
     public Long getIdReservation() {
         return idReservation;
     }
@@ -63,6 +63,22 @@ public class Reservation {
 
     public void setDateReservation(LocalDate dateReservation) {
         this.dateReservation = dateReservation;
+    }
+
+    public LocalDate getDateDebutReservation() {
+        return dateDebutReservation;
+    }
+
+    public void setDateDebutReservation(LocalDate dateDebutReservation) {
+        this.dateDebutReservation = dateDebutReservation;
+    }
+
+    public LocalDate getDateFinReservation() {
+        return dateFinReservation;
+    }
+
+    public void setDateFinReservation(LocalDate dateFinReservation) {
+        this.dateFinReservation = dateFinReservation;
     }
 
     public String getStatut() {

@@ -44,4 +44,7 @@ public class TypeAdherent {
     public void setCode(Integer code) {
         this.code = code;
     }
+     public boolean isAbonne() {
+        return "Abonne".equalsIgnoreCase(this.nom);
+    }
 }
