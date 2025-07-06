@@ -2,6 +2,7 @@ package com.bibliotheque.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table(name = "profil")
@@ -52,6 +53,13 @@ public class Profil {
 
     public String getCodeAdmin() { return codeAdmin; }
     public void setCodeAdmin(String codeAdmin) { this.codeAdmin = codeAdmin; }
+      public int getAgeEn2025() {
+        if (dateDeNaissance == null) {
+            return 0; // ou une valeur par défaut
+        }
+        LocalDate refDate = LocalDate.of(2025, 1, 1);
+        return Period.between(dateDeNaissance, refDate).getYears();
+    }
 }
 
 

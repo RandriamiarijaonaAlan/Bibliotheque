@@ -2,6 +2,7 @@ C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\entity\Profil.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\controller\LivreController.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\entity\Exemplaire.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\entity\Prolongement.java
+C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\service\PretService.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\repository\PretRepository.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\controller\ExemplaireController.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\repository\ExemplaireRepository.java
@@ -30,6 +31,7 @@ C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\repository\Abonnemen
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\repository\LivreRepository.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\controller\AdminAbonnementController.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\entity\Reservation.java
+C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\controller\PretController.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\controller\ValidationController.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\repository\ReservationRepository.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\entity\Pret.java

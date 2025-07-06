@@ -22,7 +22,7 @@ public class Exemplaire {
     private String codeBarre;
 
     @Column(name = "etat")
-    private String etat; // 'disponible', 'en_pret', ...
+    private String etat ="disponible"; // 'disponible', 'en_pret', ...
 
     @Column(name = "localisation")
     private String localisation;

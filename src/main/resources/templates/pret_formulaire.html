@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulaire de Prêt</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+
+<h2>Créer un nouveau prêt</h2>
+
+<form th:action="@{/pret/enregistrer}" method="post">
+    <label for="idAdherent">Adhérent :</label>
+    <select id="idAdherent" name="idAdherent" required>
+        <option value="" disabled selected>Choisissez un adhérent</option>
+        <option th:each="adherent : ${adherents}" 
+                th:value="${adherent.idAdherent}" 
+                th:text="${adherent.profil.nom + ' ' + adherent.profil.prenom}"></option>
+    </select>
+    <br/><br/>
+
+    <label for="idExemplaire">Exemplaire :</label>
+    <select id="idExemplaire" name="idExemplaire" required>
+        <option value="" disabled selected>Choisissez un exemplaire</option>
+        <option th:each="exemplaire : ${exemplaires}" 
+                th:value="${exemplaire.idExemplaire}" 
+                th:text="${exemplaire.livre.titre + ' (' + exemplaire.etat + ')'}"></option>
+    </select>
+    <br/><br/>
+
+    
+
+    <label for="dateRetourPrevue">Date retour prévue :</label>
+    <input type="date" id="dateRetourPrevue" name="dateRetourPrevue" required />
+    <br/><br/>
+
+    <label for="typeLecture">Type de lecture :</label>
+    <select id="typeLecture" name="typeLecture" required>
+        <option value="" disabled selected>Choisissez un type</option>
+        <option value="domicile">Domicile</option>
+        <option value="sur_place">Sur place</option>
+    </select>
+    <br/><br/>
+
+    <button type="submit">Créer le prêt</button>
+</form>
+
+<!-- Affichage des messages succès ou erreur -->
+<div th:if="${success}" style="color:green;">
+    <p th:text="${success}"></p>
+</div>
+<div th:if="${error}" style="color:red;">
+    <p th:text="${error}"></p>
+</div>
+
+</body>
+</html>

@@ -6,7 +6,11 @@
 <body>
     <h1>Bienvenue <span th:text="${user.nom}">Utilisateur</span> !</h1>
     <p>Voici les options disponibles :</p>
-    <a href="/abonnement/form">Page de validation</a>
-    <a href="/logout">Déconnexion</a>
+    <ul>
+        <li><a href="/abonnement/form">Abonnement</a></li>
+       <li><a th:href="@{/pret/formulaire}">Effectuer un prêt</a></li>
+
+        <li><a href="/logout">Déconnexion</a></li>
+    </ul>
 </body>
 </html>
