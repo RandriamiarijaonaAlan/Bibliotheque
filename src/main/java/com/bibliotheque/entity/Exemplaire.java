@@ -12,26 +12,23 @@ public class Exemplaire {
     private Long idExemplaire;
 
     @ManyToOne
-    @JoinColumn(name = "id_livre", nullable = false)
+    @JoinColumn(name = "id_livre")
     private Livre livre;
 
-    @Column(name = "titre_exemplaire", length = 255)
+    @Column(name = "titre_exemplaire")
     private String titreExemplaire;
 
-    @Column(name = "code_barre", unique = true, length = 50)
+    @Column(name = "code_barre", unique = true)
     private String codeBarre;
 
-    @Column(length = 20)
-    private String etat;  // disponible, en_pret, en_reservation, lecture_sur_place
+    @Column(name = "etat")
+    private String etat; // 'disponible', 'en_pret', ...
 
-    @Column(length = 100)
+    @Column(name = "localisation")
     private String localisation;
 
     @Column(name = "autorise_lecture_sur_place")
-    private Boolean autoriseLectureSurPlace = true;
-
-    // Constructeurs
-    public Exemplaire() {}
+    private Boolean autoriseLectureSurPlace;
 
     // Getters et setters
 

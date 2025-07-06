@@ -1,7 +1,10 @@
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\entity\Profil.java
+C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\controller\LivreController.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\entity\Exemplaire.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\entity\Prolongement.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\repository\PretRepository.java
+C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\controller\ExemplaireController.java
+C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\repository\ExemplaireRepository.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\entity\Livre.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\repository\CotisationRepository.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\repository\TypeAdherentRepository.java
@@ -24,6 +27,7 @@ C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\BibliothequeLoginApp
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\controller\AdminController.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\controller\AbonnementController.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\repository\AbonnementRepository.java
+C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\repository\LivreRepository.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\controller\AdminAbonnementController.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\entity\Reservation.java
 C:\xampp\htdocs\Bibliotheque\src\main\java\com\bibliotheque\controller\ValidationController.java

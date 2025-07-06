@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Créer un exemplaire</title>
+</head>
+<body>
+    <h2>Créer un exemplaire</h2>
+
+    <div th:if="${error}" style="color: red;" th:text="${error}"></div>
+    <div th:if="${message}" style="color: green;" th:text="${message}"></div>
+
+    <form th:action="@{/admin/exemplaire/creation}" method="post" th:object="${exemplaire}">
+        
+        <label for="livreId">Livre :</label>
+        <select name="livreId" id="livreId" required>
+            <option value="">-- Choisir un livre --</option>
+            <option th:each="livre : ${livres}" 
+                    th:value="${livre.idLivre}" 
+                    th:text="${livre.titre}">Livre</option>
+        </select>
+        <br/><br/>
+
+        <label for="titreExemplaire">Titre exemplaire :</label>
+        <input type="text" id="titreExemplaire" th:field="*{titreExemplaire}" required />
+        <br/><br/>
+
+        <label for="codeBarre">Code barre :</label>
+        <input type="text" id="codeBarre" th:field="*{codeBarre}" required />
+        <br/><br/>
+
+        <button type="submit">Enregistrer</button>
+    </form>
+</body>
+</html>
