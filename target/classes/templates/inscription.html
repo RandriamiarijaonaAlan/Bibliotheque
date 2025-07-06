@@ -18,7 +18,7 @@
 
   <label>Type d’adhérent:
     <select th:field="*{idTypeAdherent}">
-      <option th:each="t : ${types}" th:value="${t.idTypeAdherent}"
+      <option th:each="t : ${types}" th:value="${t.id}"
               th:text="${t.nom}">Type</option>
     </select>
   </label><br/>

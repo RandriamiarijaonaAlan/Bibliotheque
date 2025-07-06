@@ -2,13 +2,14 @@ package com.bibliotheque.service;
 
 import com.bibliotheque.dto.ActivityDto;
 import com.bibliotheque.entity.Abonnement;
+import com.bibliotheque.entity.Adherent;
 import com.bibliotheque.entity.Exemplaire;
 import com.bibliotheque.entity.Pret;
 import com.bibliotheque.repository.AbonnementRepository;
 import com.bibliotheque.repository.PretRepository;
 import jakarta.transaction.Transactional;
 import com.bibliotheque.repository.ExemplaireRepository;
-
+import com.bibliotheque.repository.AdherentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,9 @@ public class ValidationService {
     private PretRepository pretRepository;
 
     @Autowired
-private ExemplaireRepository exemplaireRepository;
+    private ExemplaireRepository exemplaireRepository;
+    @Autowired
+    private AdherentRepository adherentRepository;
 
 
     public List<ActivityDto> getAllActivities() {
@@ -61,13 +64,25 @@ private ExemplaireRepository exemplaireRepository;
         return result;
     }
 
+    @Transactional
     public void validerAbonnement(Long id) {
-        Abonnement abonnement = abonnementRepository.findById(id).orElse(null);
-        if (abonnement != null && "en_attente".equals(abonnement.getStatut())) {
-            abonnement.setStatut("valide");
-            abonnementRepository.save(abonnement);
+        Abonnement abonnement = abonnementRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Abonnement non trouvé"));
+
+        if (!"en_attente".equals(abonnement.getStatut())) {
+            throw new RuntimeException("Abonnement non en attente");
+        }
+
+        abonnement.setStatut("valide");
+        abonnementRepository.save(abonnement);
+
+        Adherent adherent = abonnement.getAdherent();
+        if (adherent != null) {
+            adherent.setStatut("actif");
+            adherentRepository.save(adherent);
         }
     }
+
 
     @Transactional
 public void validerPret(Long idPret) {
