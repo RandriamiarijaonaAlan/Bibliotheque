@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -25,46 +26,34 @@ public class AbonnementController {
     @Autowired
     private AdherentRepository adherentRepository;
 
-    /* ---------- Formulaire GET ---------- */
     @GetMapping("/form")
     public String showForm(Model model) {
-        // Les messages « flash » (succès / erreur) sont déjà injectés par Spring
+        List<Adherent> adherents = adherentRepository.findAll();
+        model.addAttribute("adherents", adherents);
         return "abonnement_form";
     }
 
-    /* ---------- Soumission POST ---------- */
     @PostMapping("/demande")
-    public String demanderAbonnement(
-            @RequestParam("dateDebut") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateDebut,
-            @RequestParam("dateFin")   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFin,
-            HttpSession session,
-            RedirectAttributes ra) {
+    public String demanderAbonnement(@RequestParam("idAdherent") Long idAdherent,
+                                     @RequestParam("dateDebut") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateDebut,
+                                     @RequestParam("dateFin") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFin,
+                                     RedirectAttributes redirectAttributes) {
 
-        /* 1. Récupération de l’adhérent connecté (en session) */
-        Long idAdherent = (Long) session.getAttribute("idAdherent");
-        if (idAdherent == null) {
-            ra.addFlashAttribute("erreur", "Vous devez être connecté pour faire une demande d’abonnement.");
-            return "redirect:/login";
+        Optional<Adherent> adherentOpt = adherentRepository.findById(idAdherent);
+        if (adherentOpt.isEmpty()) {
+            redirectAttributes.addFlashAttribute("erreur", "Adhérent introuvable.");
+            return "redirect:/abonnement/form";
         }
 
-        /* 2. Vérification que l’adhérent existe */
-        Optional<Adherent> optAdh = adherentRepository.findById(idAdherent);
-        if (optAdh.isEmpty()) {
-            ra.addFlashAttribute("erreur", "Adhérent introuvable.");
-            return "redirect:/";
-        }
+        Abonnement abonnement = new Abonnement();
+        abonnement.setAdherent(adherentOpt.get());
+        abonnement.setDateDebut(dateDebut);
+        abonnement.setDateFin(dateFin);
+        abonnement.setStatut("en_attente");
 
-        /* 3. Enregistrement de la demande (statut = en_attente) */
-        Abonnement abo = new Abonnement();
-        abo.setAdherent(optAdh.get());
-        abo.setDateDebut(dateDebut);
-        abo.setDateFin(dateFin);
-        abo.setStatut("en_attente");
+        abonnementRepository.save(abonnement);
 
-        abonnementRepository.save(abo);   // persiste la demande
-
-        /* 4. Message de succès et redirection */
-        ra.addFlashAttribute("message", "Votre demande d’abonnement a été envoyée au bibliothécaire pour validation.");
+        redirectAttributes.addFlashAttribute("message", "Demande envoyée avec succès !");
         return "redirect:/abonnement/form";
     }
 }

@@ -1,57 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Page de validation</title>
-    <style>
-        table, th, td { border: 1px solid black; border-collapse: collapse; padding: 5px;}
-    </style>
+    <meta charset="UTF-8" />
+    <title>Page de validation des demandes</title>
 </head>
 <body>
 
-<h1>Page de validation</h1>
+    <h2>Demandes à valider</h2>
 
-<form method="get" th:action="@{/admin/validation}">
-    <input type="text" name="search" placeholder="Rechercher livre ou adhérent" th:value="${search}"/>
-    <button type="submit">Rechercher</button>
-</form>
+    <!-- Formulaire de recherche -->
+    <form th:action="@{/admin/validation}" method="get">
+        <input type="text" name="search" placeholder="Recherche par nom ou livre" th:value="${search}" />
+        <button type="submit">Rechercher</button>
+    </form>
 
-<table>
-    <thead>
-        <tr>
-            <th>Nom Adhérent</th>
-            <th>Titre Livre</th>
-            <th>Date</th>
-            <th>Type</th>
-            <th>Statut</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="activity : ${activities}">
-            <td th:text="${activity.nomAdherent}">Nom</td>
-            <td th:text="${activity.titreLivre}">Titre</td>
-            <td th:text="${activity.date}">Date</td>
-            <td th:text="${activity.type}">Type</td>
-            <td th:text="${activity.statut}">Statut</td>
-            <td>
-                <form th:if="${activity.statut == 'en_attente' or activity.statut == 'en_attente' or activity.statut == 'non payée'}"
-                      th:switch="${activity.type}" method="post"
-                      th:action="@{
-                          ${activity.type == 'Reservation'} ? '/admin/validation/reservation/' + ${activity.id} :
-                          ${activity.type == 'Prêt'} ? '/admin/validation/pret/' + ${activity.id} :
-                          ${activity.type == 'Prolongement'} ? '/admin/validation/prolongement/' + ${activity.id} :
-                          ${activity.type == 'Abonnement'} ? '/admin/validation/abonnement/' + ${activity.id} :
-                          '#'
-                      }">
-                    <button type="submit">Valider</button>
-                </form>
-            </td>
-        </tr>
-    </tbody>
-</table>
+    <hr/>
 
-<br>
-<a href="/">Retour à l'accueil</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom Adhérent</th>
+                <th>Livre</th>
+                <th>Date début</th>
+                <th>Date fin</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="activity : ${activities}">
+                <td th:text="${activity.id}">ID</td>
+                <td th:text="${activity.nomAdherent}">Nom</td>
+                <td th:text="${activity.titreLivre != null ? activity.titreLivre : 'N/A'}">Titre</td>
+                <td th:text="${activity.dateDebut}">Date début</td>
+                <td th:text="${activity.dateFin}">Date fin</td>
+                <td>
+                    <form th:if="${activity.type == 'reservation'}" 
+                          th:action="@{'/admin/validation/reservation/' + ${activity.id}}" method="post">
+                        <button type="submit">Valider réservation</button>
+                    </form>
+
+                    <form th:if="${activity.type == 'pret'}" 
+                          th:action="@{'/admin/validation/pret/' + ${activity.id}}" method="post">
+                        <button type="submit">Valider prêt</button>
+                    </form>
+
+                    <form th:if="${activity.type == 'prolongement'}" 
+                          th:action="@{'/admin/validation/prolongement/' + ${activity.id}}" method="post">
+                        <button type="submit">Valider prolongement</button>
+                    </form>
+
+                    <form th:if="${activity.type == 'abonnement'}" 
+                          th:action="@{'/admin/validation/abonnement/' + ${activity.id}}" method="post">
+                        <button type="submit">Valider abonnement</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
 </body>
 </html>

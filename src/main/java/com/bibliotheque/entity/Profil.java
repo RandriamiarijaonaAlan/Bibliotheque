@@ -29,6 +29,7 @@ public class Profil {
     @Column(name = "code_admin", length = 4)
     private String codeAdmin;
 
+    
     // Getters et setters...
 
     public Integer getIdProfil() { return idProfil; }

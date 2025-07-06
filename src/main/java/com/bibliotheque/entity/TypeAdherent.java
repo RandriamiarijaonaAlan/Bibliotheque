@@ -6,25 +6,28 @@ import jakarta.persistence.*;
 @Table(name = "type_adherent")
 public class TypeAdherent {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idTypeAdherent;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_type_adherent")
+    private Integer id;
 
-    @Column(length = 100, nullable = false, unique = true)
+    @Column(name = "nom", unique = true, nullable = false)
     private String nom;
 
-    /** Code à 4 chiffres pour les bibliothécaires (nullable sinon) */
+    // Supposons que "code" est un Integer (car en base c’est INT)
     @Column(name = "code")
-private Integer code;
+    private Integer code;
 
-
-    public Long getIdTypeAdherent() {
-        return idTypeAdherent;
+    // Getter et setter pour id
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdTypeAdherent(Long idTypeAdherent) {
-        this.idTypeAdherent = idTypeAdherent;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
+    // Getter et setter pour nom
     public String getNom() {
         return nom;
     }
@@ -33,14 +36,12 @@ private Integer code;
         this.nom = nom;
     }
 
-    public String getCode() {
+    // Getter et setter pour code - **ici il faut que les types correspondent à Integer**
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
-
-    /* getters & setters */
-    
 }

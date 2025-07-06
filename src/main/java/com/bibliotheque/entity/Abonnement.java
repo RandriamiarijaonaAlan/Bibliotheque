@@ -58,6 +58,9 @@ public class Abonnement {
     public void setStatut(String statut) {
         this.statut = statut;
     }
+    public Long getId() {
+    return idAbonnement;
+}
 
     // Getters / Setters
     

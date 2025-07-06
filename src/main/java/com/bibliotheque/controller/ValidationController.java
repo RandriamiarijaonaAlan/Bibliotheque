@@ -2,12 +2,17 @@ package com.bibliotheque.controller;
 
 import com.bibliotheque.dto.ActivityDto;
 import com.bibliotheque.entity.Abonnement;
+import com.bibliotheque.entity.Profil;
 import com.bibliotheque.service.ValidationService;
+
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.bibliotheque.repository.AbonnementRepository;
 import java.util.List;
 
@@ -18,24 +23,15 @@ public class ValidationController {
     @Autowired
     private ValidationService validationService;
 
-    @GetMapping("/validation")
-    public String showValidationPage(Model model, @RequestParam(value = "search", required = false) String search) {
-        List<ActivityDto> activities = validationService.getAllActivities();
-         List<Abonnement> abonnementsEnAttente = abonnementRepository.findByStatut("en_attente");
-        model.addAttribute("abonnementsEnAttente", abonnementsEnAttente);
-        // Filtrer si recherche (par titre livre ou nom adherent)
-        if (search != null && !search.isEmpty()) {
-            String lowerSearch = search.toLowerCase();
-            activities = activities.stream()
-                .filter(a -> a.getTitreLivre().toLowerCase().contains(lowerSearch)
-                          || a.getNomAdherent().toLowerCase().contains(lowerSearch))
-                .toList();
-        }
+  // Supposons que le bibliothécaire ait un code de 4 chiffres
+@GetMapping("/validation")
+public String showValidationPage(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+    List<ActivityDto> activities = validationService.getAllActivities();
+    model.addAttribute("activities", activities);
+    return "validation_page";
+}
 
-        model.addAttribute("activities", activities);
-        model.addAttribute("search", search);
-        return "validation_page";
-    }
+
 
     // Validation actions via POST, ici exemples
 

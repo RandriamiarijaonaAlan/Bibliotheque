@@ -1,61 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Validation des abonnements</title>
     <meta charset="UTF-8" />
-    <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ccc; padding: 8px; }
-        th { background-color: #eee; }
-        .btn { padding: 5px 10px; margin: 0 2px; cursor: pointer; }
-        .btn-valider { background-color: #4CAF50; color: white; }
-        .btn-refuser { background-color: #f44336; color: white; }
-        .message { color: green; }
-        .erreur { color: red; }
-    </style>
+    <title>Page de validation</title>
 </head>
 <body>
-<h1>Validation des abonnements</h1>
+    <h1>Page de validation des activités</h1>
 
-<!-- Messages succès / erreur -->
-<div th:if="${message}" class="message" th:text="${message}"></div>
-<div th:if="${erreur}" class="erreur" th:text="${erreur}"></div>
+    <form action="#" th:action="@{/admin/validation}" method="get">
+        <input type="text" name="search" placeholder="Recherche" th:value="${search}" />
+        <button type="submit">Rechercher</button>
+    </form>
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Adhérent</th>
-            <th>Date début</th>
-            <th>Date fin</th>
-            <th>Statut</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    <tr th:each="abo : ${demandes}">
-        <td th:text="${abo.id}"></td>
-        <td th:text="${abo.adherent.profil.nom} + ' (' + abo.adherent.profil.email + ')'"></td>
-        <td th:text="${abo.dateDebut}"></td>
-        <td th:text="${abo.dateFin}"></td>
-        <td th:text="${abo.statut}"></td>
-        <td>
-            <form th:action="@{/admin/abonnement/valider}" method="post" style="display:inline;">
-                <input type="hidden" name="id" th:value="${abo.id}" />
-                <button type="submit" class="btn btn-valider">Valider</button>
-            </form>
-            <form th:action="@{/admin/abonnement/refuser}" method="post" style="display:inline;">
-                <input type="hidden" name="id" th:value="${abo.id}" />
-                <button type="submit" class="btn btn-refuser">Refuser</button>
-            </form>
-        </td>
-    </tr>
-    <tr th:if="${demandes.empty}">
-        <td colspan="6">Aucune demande en attente.</td>
-    </tr>
-    </tbody>
-</table>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Type d'activité</th>
+                <th>Livre</th>
+                <th>Adhérent</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="activity : ${activities}">
+                <td th:text="${activity.type}">Type</td>
+                <td th:text="${activity.titreLivre}">Titre Livre</td>
+                <td th:text="${activity.nomAdherent}">Nom Adhérent</td>
+                <td>
+                    <form th:action="@{${'/admin/validation/' + activity.type.toLowerCase() + '/' + activity.id}}" method="post">
+                        <button type="submit">Valider</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-<p><a href="/admin/dashboard">Retour au tableau de bord</a></p>
 </body>
 </html>
