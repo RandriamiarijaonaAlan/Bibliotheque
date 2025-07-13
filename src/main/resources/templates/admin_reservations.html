@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Demandes de réservation</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+<h1>Demandes de réservation en attente</h1>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID Réservation</th>
+            <th>Adhérent</th>
+            <th>Exemplaire</th>
+            <th>Date début réservation</th>  <!-- Ajout -->
+            <th>Date fin réservation</th>    <!-- Ajout -->
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="res : ${reservations}">
+            <td th:text="${res.idReservation}">ID</td>
+            <td th:text="${res.adherent.profil.nom + ' ' + res.adherent.profil.prenom}">Adhérent</td>
+            <td th:text="${res.exemplaire.titreExemplaire}">Exemplaire</td>
+            <td th:text="${res.dateDebutReservation}">Date début</td> <!-- Ajout -->
+            <td th:text="${res.dateFinReservation}">Date fin</td>     <!-- Ajout -->
+            <td th:text="${res.statut}">Statut</td>
+            <td>
+                <form th:action="@{'/admin/reservation/valider/' + ${res.idReservation}}" method="post" style="display:inline">
+                    <button type="submit">Valider</button>
+                </form>
+                <form th:action="@{'/admin/reservation/refuser/' + ${res.idReservation}}" method="post" style="display:inline">
+                    <button type="submit">Refuser</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

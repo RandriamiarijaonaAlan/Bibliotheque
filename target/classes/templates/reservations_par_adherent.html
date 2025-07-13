@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Réservations par Adhérent</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Réservations par Adhérent</h1>
+
+    <form th:action="@{/admin/reservation/par-adherent}" method="get">
+        <label for="idAdherent">Choisir un adhérent :</label>
+        <select name="idAdherent" id="idAdherent">
+            <option value="">-- Sélectionnez --</option>
+            <option th:each="ad : ${adherents}" 
+                    th:value="${ad.idAdherent}" 
+                    th:text="${ad.profil.nom + ' ' + ad.profil.prenom}"
+                    th:selected="${ad.idAdherent == selectedId}">
+            </option>
+        </select>
+        <button type="submit">Afficher</button>
+    </form>
+
+    <div th:if="${reservations != null}">
+        <h2>Liste des réservations</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Exemplaire</th>
+                    <th>Date Réservation</th>
+                    <th>Début</th>
+                    <th>Fin</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="res : ${reservations}">
+                    <td th:text="${res.idReservation}"></td>
+                    <td th:text="${res.exemplaire.titreExemplaire}"></td>
+                    <td th:text="${res.dateReservation}"></td>
+                    <td th:text="${res.dateDebutReservation}"></td>
+                    <td th:text="${res.dateFinReservation}"></td>
+                    <td th:text="${res.statut}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

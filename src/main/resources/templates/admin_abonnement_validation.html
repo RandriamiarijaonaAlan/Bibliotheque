@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Page de validation</title>
+</head>
+<body>
+    <h1>Page de validation des activités</h1>
+
+    <form action="#" th:action="@{/admin/validation}" method="get">
+        <input type="text" name="search" placeholder="Recherche" th:value="${search}" />
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Type d'activité</th>
+                <th>Livre</th>
+                <th>Adhérent</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="activity : ${activities}">
+                <td th:text="${activity.type}">Type</td>
+                <td th:text="${activity.titreLivre}">Titre Livre</td>
+                <td th:text="${activity.nomAdherent}">Nom Adhérent</td>
+                <td>
+                    <form th:action="@{${'/admin/validation/' + activity.type.toLowerCase() + '/' + activity.id}}" method="post">
+                        <button type="submit">Valider</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

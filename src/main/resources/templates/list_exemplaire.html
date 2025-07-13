@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Liste des exemplaires</title>
+</head>
+<body>
+    <h1>Liste des exemplaires</h1>
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Etat</th>
+                <th>Localisation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="exemplaire : ${exemplaires}">
+                <td th:text="${exemplaire.idExemplaire}">1</td>
+                <td th:text="${exemplaire.livre.titre}">Titre Livre</td>
+                <td th:text="${exemplaire.etat}">disponible</td>
+                <td th:text="${exemplaire.localisation}">Emplacement</td>
+            </tr>
+        </tbody>
+    </table>
+    <p><a th:href="@{/admin/dashboard}">Retour au tableau de bord</a></p>
+</body>
+</html>

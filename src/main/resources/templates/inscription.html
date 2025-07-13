@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Inscription</title>
+</head>
+<body>
+<h2>Créer un compte</h2>
+
+<form th:action="@{/inscription}" th:object="${inscriptionDTO}" method="post">
+  <label>Nom:       <input type="text" th:field="*{nom}"/></label><br/>
+  <label>Prénom:    <input type="text" th:field="*{prenom}"/></label><br/>
+  <label>E‑mail:    <input type="email" th:field="*{email}"/></label><br/>
+  <label>Mot de passe:
+        <input type="password" th:field="*{motDePasse}"/></label><br/>
+  <label>Date de naissance:
+        <input type="date" th:field="*{dateDeNaissance}"/></label><br/>
+
+  <label>Type d’adhérent:
+    <select th:field="*{idTypeAdherent}">
+      <option th:each="t : ${types}" th:value="${t.id}"
+              th:text="${t.nom}">Type</option>
+    </select>
+  </label><br/>
+
+  <!-- Bloc erreurs déplacé ici -->
+  <div th:if="${#fields.hasErrors('*')}">
+      <p style="color:red" th:each="e : ${#fields.errors('*')}" th:text="${e}"></p>
+  </div>
+
+  <button type="submit">S'inscrire</button>
+</form>
+<a th:href="@{/}">Retour à l'accueil</a>
+
+
+</body>
+</html>

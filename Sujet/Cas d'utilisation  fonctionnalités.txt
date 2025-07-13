@@ -1,0 +1,43 @@
+Nom : prêter un (exemplaire) livre
+Objectif : ... #textuel
+Acteur : bibliothécaire
+Entrée : ref exemplaire, ref adhérent
+
+Scénario nominal :
+- Se connecte
+- Va à  "prêter un livre"
+Remplis les champs "..." et "..."
+Clique sur valider
+
+
+Cas d'utilisation : fonctionnalités
+Besoin fonctionnel : règle de gestion
+Besoin : - fonctionnel
+	 - non fonctionnel
+=> Cahier de charge
+
+Règle de gestion :
+- adhérent existe
+- exemplaires existant et disponibles
+- quota 
+- non sanctionné
+- adhérent abonné
+- règles associés à chaque livre : âge, genre, ...
+
+Scénarion alternatif :
+Page d'erreur avec la cause précise
+
+Résulat : 
+- adhérent +1 prêt
+- adhérent -1 quota
+- exemplaire -> indisponible -> date
+
+Exemple : 
+Si adh < 18
+-> mess erreur -> quota pas de changement
+
+
+=> test unitaire
+
+
+Libraire JUnit (Java)

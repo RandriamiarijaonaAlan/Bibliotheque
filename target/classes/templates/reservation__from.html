@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Réservation</title></head>
+<body>
+    <h1>Faire une réservation</h1>
+    <form th:action="@{/reservation/demander}" method="post">
+        <label>Id Adhérent: <input type="number" name="idAdherent" required/></label><br/><br/>
+
+        <label>Exemplaire:
+            <select name="idExemplaire" required>
+                <option th:each="ex : ${exemplaires}" th:value="${ex.idExemplaire}" 
+                        th:text="${ex.livre.nom} + ' (' + ex.etat + ')'"></option>
+            </select>
+        </label><br/><br/>
+
+        <label>Date de réservation:
+            <input type="date" name="dateReservation" required/>
+        </label><br/><br/>
+
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <p th:text="${message}"></p>
+</body>
+</html>

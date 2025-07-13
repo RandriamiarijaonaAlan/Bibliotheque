@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Validation des activités</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { padding: .5rem; border: 1px solid #ccc; text-align: center; }
+        .btn { padding: .3rem .7rem; cursor: pointer; border: none; border-radius: 4px; }
+        .valide  { background: #4CAF50; color: #fff; }
+        .refuse  { background: #f44336; color: #fff; }
+    </style>
+</head>
+
+<body>
+<h1>Validation des activités (bibliothécaire)</h1>
+
+<!-- Barre de recherche simple (facultative) -->
+<form th:action="@{/admin/validation}" method="get" style="margin-bottom:1rem;">
+    <input type="text" name="search" placeholder="Recherche…" th:value="${param.search}">
+    <button type="submit">Rechercher</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Adhérent</th>
+            <th>Titre / Info</th>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    <!-- activities vient du modèle : List<ActivityDto> -->
+    <tr th:each="act : ${activities}">
+        <td th:text="${act.type}">type</td>
+        <td th:text="${act.nomAdherent}">nom</td>
+        <td th:text="${act.titreLivre}">titre</td>
+        <td th:text="${act.dateDebut}">debut</td>
+        <td th:text="${act.dateFin}">fin</td>
+
+        <td>
+            <!-- =======  Actions pour un PRÊT  ======= -->
+            <div th:if="${act.type == 'pret'}">
+                <!-- Valider -->
+                <form th:action="@{/admin/validation/pret/valider/{id}(id=${act.id})}"
+                      method="post" style="display:inline;">
+                    <button type="submit" class="btn valide">Valider</button>
+                </form>
+
+                <!-- Refuser -->
+                <form th:action="@{/admin/validation/pret/refuser/{id}(id=${act.id})}"
+                      method="post" style="display:inline;">
+                    <button type="submit" class="btn refuse">Refuser</button>
+                </form>
+            </div>
+
+            <!-- =======  Action pour un ABONNEMENT  ======= -->
+            <div th:if="${act.type == 'abonnement'}">
+                <form th:action="@{/admin/validation/abonnement/{id}(id=${act.id})}"
+                      method="post" style="display:inline;">
+                    <button type="submit" class="btn valide">Valider</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Lien retour -->
+<p style="margin-top:1rem;"><a href="/admin/dashboard">◄ Retour au tableau de bord</a></p>
+
+</body>
+</html>

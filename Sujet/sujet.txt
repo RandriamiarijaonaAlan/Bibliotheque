@@ -1,0 +1,15 @@
+Livre
+Exemplaire :
+	- etat : dispo, en prêt, en réservation
+Pret (lecture sur place, maison)
+Adhérent (membre) : etudiant, professionnel, professeur
+Penalité
+Cotisation (Inscription)
+Resérvation
+Prolongement prêt (par profile)
+Gestion jour férié
+
+A faire
+	
+	Fonctionnalités
+	

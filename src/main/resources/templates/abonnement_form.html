@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Demande d'abonnement</title>
+</head>
+<body>
+
+    <h2>Créer une demande d’abonnement</h2>
+
+    <!-- Message de confirmation ou erreur -->
+    <div th:if="${message}" style="color:green;" th:text="${message}"></div>
+    <div th:if="${erreur}" style="color:red;" th:text="${erreur}"></div>
+
+    <form th:action="@{/abonnement/demande}" method="post">
+        
+        <!-- Choix du profil/adherent à abonner -->
+        <label for="idAdherent">Sélectionner l'adhérent :</label>
+        <select name="idAdherent" id="idAdherent" required>
+            <option value="">-- Choisir --</option>
+            <option th:each="adherent : ${adherents}" 
+                    th:value="${adherent.idAdherent}" 
+                    th:text="${adherent.profil.nom + ' ' + adherent.profil.prenom}">
+            </option>
+        </select>
+        <br/><br/>
+
+        <!-- Dates -->
+        <label for="dateDebut">Date de début :</label>
+        <input type="date" id="dateDebut" name="dateDebut" required>
+        <br/><br/>
+
+        <label for="dateFin">Date de fin :</label>
+        <input type="date" id="dateFin" name="dateFin" required>
+        <br/><br/>
+
+        <button type="submit">Envoyer la demande</button>
+    </form>
+
+</body>
+</html>

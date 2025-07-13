@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Réservations</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: .5rem;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        .btn {
+            padding: .4rem .8rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .valider {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .disabled {
+            background-color: #999;
+            color: white;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+<h1>Réservations des Adhérents</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Nom Adhérent</th>
+        <th>Exemplaire</th>
+        <th>Date de Réservation</th>
+        <th>Statut</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="resa : ${reservations}">
+        <td th:text="${resa.adherent.nom} + ' ' + ${resa.adherent.prenom}">Nom</td>
+        <td th:text="${resa.exemplaire.titreExemplaire}">Titre exemplaire</td>
+        <td th:text="${#dates.format(resa.dateReservation, 'dd/MM/yyyy')}">01/01/2025</td>
+        <td th:text="${resa.statut}">en_attente</td>
+        <td>
+            <form th:if="${resa.statut == 'en_attente'}"
+                  th:action="@{/admin/reservation/valider/{id}(id=${resa.idReservation})}"
+                  method="post" style="display:inline;">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <button type="submit" class="btn valider">Valider</button>
+            </form>
+            <button th:if="${resa.statut != 'en_attente'}" class="btn disabled" disabled>Déjà traitée</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<p style="margin-top: 1rem;"><a th:href="@{/admin/dashboard}">◄ Retour au tableau de bord</a></p>
+</body>
+</html>

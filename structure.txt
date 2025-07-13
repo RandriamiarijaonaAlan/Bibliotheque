@@ -1,0 +1,30 @@
+bibliotheque-springmvc/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── bibliotheque/
+│   │   │           ├── BibliothequeApplication.java        # Classe principale
+│   │   │           ├── controller/                         # Contrôleurs REST ou MVC
+│   │   │           │   ├── AdherentController.java
+│   │   │           │   └── PretController.java
+│   │   │           ├── entity/                             # Entités JPA
+│   │   │           │   ├── Adherent.java
+│   │   │           │   ├── Pret.java
+│   │   │           │   ├── Exemplaire.java
+│   │   │           │   ├── Livre.java
+│   │   │           │   └── enums/
+│   │   │           │       ├── StatutAdherent.java
+│   │   │           │       └── TypeAdherent.java
+│   │   │           ├── repository/                          # Interfaces JpaRepository
+│   │   │           │   ├── AdherentRepository.java
+│   │   │           │   └── PretRepository.java
+│   │   │           └── service/                             # Logique métier
+│   │   │               ├── AdherentService.java
+│   │   │               └── PretService.java
+│   │   └── resources/
+│   │       ├── application.properties
+│   │       └── templates/                                  # (si MVC avec Thymeleaf)
+│   │           └── adherents.html
+├── pom.xml
+└── README.md
